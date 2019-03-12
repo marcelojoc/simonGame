@@ -102,15 +102,72 @@
       class Juego {
         constructor() {
           this.inicializar()
+          this.generarSecuencia()
         }
 
-        inicializar() {
+        inicializar() {      // inicializa el juego  quita el boton empezar
           btnEmpezar.classList.add('hide')
         }
+
+
+        siguienteNivel(){
+
+          this.iluminarSecuencia()
+
+        }
+
+
+        transformarNUmColor(numero){
+
+            switch (numero){
+                    case 0:
+                      return  'celeste'
+                    case 1:
+                      return  'violeta'
+                    case 2:
+                      return  'naranja'
+                    case 3:
+                      return  'verde'
+
+            }
+        }
+
+        iluminarSecuencia(){  // ilumina la secuencia de botones
+
+            for (var i = 0 ; i < this.nivel; i++){
+
+              var color = this.transformarNUmColor(this.secuencia[i])
+              this.iluminarCOlo(color)
+
+            }
+
+
+        }
+
+
+        iluminarCOlor(color){
+
+            this.colores[color].classList.add('lihtk')
+
+        }
+
+
+        generarSecuencia(){
+
+          this.secuencia = new Array(10).fill(0).map(n => Math.floor( Math.random() * 4));
+
+
+        }
+
+
+
+
+
       }
 
       function empezarJuego() {
-        var juego = new Juego()
+        
+        window.juego = new Juego()
       }
     </script>
   </body>
