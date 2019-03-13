@@ -103,10 +103,16 @@
         constructor() {
           this.inicializar()
           this.generarSecuencia()
+          this.siguienteNivel()
         }
 
         inicializar() {      // inicializa el juego  quita el boton empezar
           btnEmpezar.classList.add('hide')
+          this.nivel = 1
+          this.colores={
+            celeste, violeta,naranja,verde
+          }
+
         }
 
 
@@ -134,10 +140,11 @@
 
         iluminarSecuencia(){  // ilumina la secuencia de botones
 
-            for (var i = 0 ; i < this.nivel; i++){
+            for (let i = 0 ; i < this.nivel; i++){
 
-              var color = this.transformarNUmColor(this.secuencia[i])
-              this.iluminarCOlo(color)
+              let color = this.transformarNUmColor(this.secuencia[i])
+              
+              setTimeout (()=>this.iluminarCOlor(color), 1000 * i)
 
             }
 
@@ -147,14 +154,20 @@
 
         iluminarCOlor(color){
 
-            this.colores[color].classList.add('lihtk')
-
+            this.colores[color].classList.add('light')
+            setTimeout(() => this.apagarColor(color), 350);
         }
 
 
+        apagarColor(color){
+
+          this.colores[color].classList.remove('light')
+
+        }
+
         generarSecuencia(){
 
-          this.secuencia = new Array(10).fill(0).map(n => Math.floor( Math.random() * 4));
+          this.secuencia = new Array(this.nivel).fill(0).map(n => Math.floor( Math.random() * 4));
 
 
         }
