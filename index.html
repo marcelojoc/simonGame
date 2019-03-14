@@ -107,6 +107,8 @@
         }
 
         inicializar() {      // inicializa el juego  quita el boton empezar
+
+          this.elegirColor= this.elegirColor.bind(this)
           btnEmpezar.classList.add('hide')
           this.nivel = 1
           this.colores={
@@ -119,6 +121,7 @@
         siguienteNivel(){
 
           this.iluminarSecuencia()
+          this.agregarEventosCLick()
 
         }
 
@@ -173,8 +176,19 @@
         }
 
 
+        agregarEventosCLick(){
+
+          this.colores.celeste.addEventListener('click', this.elegirColor);
+          this.colores.violeta.addEventListener('click', this.elegirColor);
+          this.colores.naranja.addEventListener('click', this.elegirColor);
+          this.colores.verde.addEventListener('click', this.elegirColor);
+        }
 
 
+        elegirColor(ev){
+
+          console.log(ev)
+        }
 
       }
 
