@@ -92,15 +92,22 @@
       <div id="verde" class="color verde right" data-color="verde"></div>
       <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
+
+
       const celeste = document.getElementById('celeste')
       const violeta = document.getElementById('violeta')
       const naranja = document.getElementById('naranja')
       const verde = document.getElementById('verde')
       const btnEmpezar = document.getElementById('btnEmpezar')
-      const ULTIMO_NIVEL = 15;
+      const ULTIMO_NIVEL = 5;
       class Juego {
+
         constructor() {
+          this.inicializar = this.inicializar.bind(this)
           this.inicializar()
           this.generarSecuencia()
           this.siguienteNivel()
@@ -110,7 +117,7 @@
 
           this.siguienteNivel= this.siguienteNivel.bind(this)
           this.elegirColor= this.elegirColor.bind(this)
-          btnEmpezar.classList.add('hide')
+          this.toggleBtnEmpezar()
           this.nivel = 1
           this.colores={
             celeste, violeta,naranja,verde
@@ -137,17 +144,18 @@
 
               if(this.nivel === (ULTIMO_NIVEL +1)){
 
-                // ganaste
+                this.ganoElJuego()
+
               }else{
+
                 setTimeout(this.siguienteNivel , 2000) 
+
               }
             }
 
         }else{
 
-          // perdiste
-
-          alert ('perdiste');
+          this.perdioElJuego()
         }
 
         }
@@ -193,7 +201,6 @@
         }
 
 
-
         iluminarSecuencia(){  // ilumina la secuencia de botones
 
             for (let i = 0 ; i < this.nivel; i++){
@@ -228,6 +235,14 @@
 
         }
 
+        toggleBtnEmpezar(){
+            if(btnEmpezar.classList.contains('hide')){
+                btnEmpezar.classList.remove('hide')
+            }else{
+                btnEmpezar.classList.add('hide')
+            }
+        }
+
 
         agregarEventosCLick(){
 
@@ -246,7 +261,25 @@
         }
 
 
+        ganoElJuego(){
 
+            swal('Ganaste','Felicitaciones ganaste el juego', 'success')
+            this.inicializar()
+        }
+
+        perdioElJuego(){
+
+          swal('UFF',  ' usa la nurona ' , 'warning')
+          .then(function(){
+
+              this.eliminarEventoClick()
+              this.inicializar()
+
+          })
+
+
+          
+        }
  
 
       }
